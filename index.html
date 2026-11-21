@@ -291,6 +291,10 @@ h1,h2,h3,.bb{font-family:var(--titre);font-weight:400;text-transform:uppercase;l
   .ec small{display:none}
   .cadre{border-radius:10px}
 }
+.env .ct{display:none}
+.e2 .envies.lum .env{background:#fff;color:var(--encre);border:1.5px solid var(--mag);box-shadow:none;animation:idee .45s cubic-bezier(.3,1.4,.5,1) both;animation-delay:calc(var(--i)*.22s + .25s)}
+.e2 .envies.lum .env::before{box-shadow:none;flex:none}
+@keyframes idee{0%{opacity:0;transform:scale(.4) translateY(8px)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
 @media (max-width:720px){
   .e2 .grille{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"parle parle" "trois trois" "envies tel";column-gap:14px;row-gap:16px;align-items:center}
   .e2 .col{display:contents}
@@ -298,8 +302,29 @@ h1,h2,h3,.bb{font-family:var(--titre);font-weight:400;text-transform:uppercase;l
   .e2 .trois{grid-area:trois}
   .e2 .envies{grid-area:envies}
   .e2 .grille>.tel{grid-area:tel;order:0;width:37cqw;border-width:5px;border-radius:24px;justify-self:end;margin-right:2px}
-  .e2 .envies{flex-direction:column;align-items:stretch;gap:8px}
-  .e2 .envies .env{font-size:13px;padding:8px 11px;line-height:1.25;white-space:normal;text-wrap:balance}
+  .e2 .envies{flex-direction:column;align-items:flex-start;gap:9px}
+  .e2 .envies .env{font-size:clamp(12px,3.3vw,13px);padding:6px 10px;gap:6px;line-height:1.2;white-space:normal;text-wrap:balance;width:fit-content;max-width:100%;border-radius:999px;rotate:var(--r,0deg);transform-origin:0 100%}
+  .e2 .envies .env:nth-child(even){align-self:flex-end;transform-origin:100% 100%}
+  .e2 .envies .env:nth-child(1){--r:-1.5deg}
+  .e2 .envies .env:nth-child(2){--r:1.2deg}
+  .e2 .envies .env:nth-child(3){--r:-.8deg;margin-left:8%}
+  .e2 .envies .env:nth-child(4){--r:1.5deg}
+  .e2 .envies .env:nth-child(5){--r:-1.2deg}
+  .e2 .envies .env:nth-child(6){--r:.8deg;margin-right:6%}
+  .e2 .envies .env::before{width:5px;height:5px}
+  .e2 .env .lg{display:none}
+  .e2 .env .ct{display:inline}
+}
+@media (max-width:384px){
+  .e2 .envies .env:nth-child(3){margin-left:0}
+  .e2 .envies .env:nth-child(6){margin-right:0}
+  .e2 .envies .env{padding:6px 9px}
+}
+@media (max-width:340px){
+  .e2 .grille{column-gap:10px}
+  .e2 .grille>.tel{width:33cqw}
+  .e2 .envies{gap:7px}
+  .e2 .envies .env{font-size:11.5px;padding:5px 8px;gap:5px}
 }
 .ec{cursor:zoom-in;-webkit-tap-highlight-color:transparent}
 .ec:focus-visible{outline:2px solid var(--mag);outline-offset:4px;border-radius:12px}
@@ -326,50 +351,162 @@ a{color:inherit}
 .rappel{display:inline-flex;align-items:center;border-radius:14px;background:var(--mag);color:#fff;font:400 21px/1 var(--titre);letter-spacing:.05em;text-transform:uppercase;padding:0 18px;height:46px;text-decoration:none}
 :focus-visible{outline:3px solid var(--lime);outline-offset:3px}
 .js .att *{animation-play-state:paused!important}
+
+/* ───────── options choisies par Vincent le 21/11 : a1 a2 a3 · b3 b4 · c2 c3 · d1 d2 · e3 ───────── */
+/* idées de Livia : encore plus petites */
+.e2 .envies.lum .env{font-size:13.5px;padding:6px 12px;gap:7px}
+.e2 .envies{gap:8px}
+@media (max-width:720px){
+  .e2 .envies{gap:7px}
+  .e2 .envies.lum .env{font-size:11.5px;padding:4px 9px;gap:5px;border-width:1.25px}
+  .e2 .envies.lum .env::before{width:4px;height:4px}
+}
+/* a1 · la carte a de la profondeur (--sy = défilement, posé par le script) */
+.e1 .ciel{transform:translateY(calc(var(--sy,0)*.34px))}
+.e1 .plan{transform:translateY(calc(var(--sy,0)*.2px))}
+.e1 .zone{transform:translateY(calc(var(--sy,0)*.09px))}
+/* a3 · les pins tombent du ciel */
+.p{animation:chute 1s cubic-bezier(.3,.7,.4,1) var(--dl) backwards}
+.p::after{content:"";position:absolute;left:50%;bottom:-9%;width:190%;aspect-ratio:3/1;margin-left:-95%;border-radius:50%;border:2px solid var(--mag);opacity:0;pointer-events:none;animation:onde .9s ease-out calc(var(--dl) + .5s) backwards}
+@keyframes chute{0%{transform:translateY(-70svh);opacity:0}12%{opacity:1}52%{transform:translateY(0)}68%{transform:translateY(-13px)}82%{transform:translateY(0)}91%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+@keyframes onde{0%{opacity:.95;transform:scale(.2)}100%{opacity:0;transform:scale(1.4)}}
+/* a2 · sur téléphone, les six lieux défilent ; sur ordinateur la bande ne change rien */
+.bande,.piste{display:contents}
+.vg.clone{display:none}
+@media (max-width:720px){
+  .bande{display:block;position:absolute;left:0;right:0;top:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-block:6px 22px;animation:bande .9s cubic-bezier(.2,.8,.2,1) .5s backwards}
+  .bande::-webkit-scrollbar{display:none}
+  .piste{display:flex;width:max-content;animation:defile 44s linear infinite}
+  .bande .vg,.bande .vg.gd,.bande .vg.clone{display:block;position:relative;left:auto;top:auto;flex:none;width:29cqw;margin-right:10px;animation:none}
+}
+@keyframes defile{to{transform:translateX(-50%)}}
+@keyframes bande{from{opacity:0;transform:translateX(18%)}}
+/* b3 · Livia réagit : elle se penche avec le défilement, elle saute quand on la touche */
+.parle .liv{rotate:var(--pen,0deg);transition:rotate .3s ease-out;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.liv.saut{animation:groove 1.1s ease-in-out infinite alternate,saut .62s cubic-bezier(.3,.7,.4,1)}
+@keyframes saut{0%{translate:0 0;scale:1 1}18%{scale:1.08 .9}48%{translate:0 -26%;scale:.96 1.05}78%{translate:0 0;scale:1.06 .93}100%{translate:0 0;scale:1 1}}
+/* b4 · une bulle plus soignée : fondu enchaîné, nom qui glisse, barre du temps */
+.bul.a1 .it{animation-name:tour6b}
+.bul.a1 .it b{animation:nom6 var(--t) linear infinite;animation-delay:var(--d)}
+.bul.a1::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--mag);transform-origin:0 50%;animation:barre6 2.2s linear infinite;z-index:2}
+.js .att .bul.a1::after{animation-play-state:paused}
+@keyframes tour6b{0%{opacity:0;transform:scale(1.05)}3.6%,16.6%{opacity:1;transform:none}20.6%,100%{opacity:0;transform:none}}
+@keyframes nom6{0%{transform:translateY(80%)}3.6%,100%{transform:none}}
+@keyframes barre6{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+/* c3 · les écrans arrivent en cascade */
+.ec{animation:casc .8s cubic-bezier(.2,.8,.2,1) backwards}
+.ec:nth-child(1){animation-delay:.2s}.ec:nth-child(2){animation-delay:.34s}.ec:nth-child(3){animation-delay:.48s}.ec:nth-child(4){animation-delay:.62s}
+@keyframes casc{from{opacity:0;transform:translateY(70px) rotate(9deg)}}
+/* c2 · en grand, on glisse d'un écran à l'autre */
+.loupe{padding-left:0;padding-right:0;gap:14px}
+.loupe .rail{display:flex;width:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.loupe .rail::-webkit-scrollbar{display:none}
+.loupe .vue{flex:none;width:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:10px;scroll-snap-align:center;scroll-snap-stop:always;padding:0 16px}
+.loupe img{max-height:70svh}
+.loupe .pts{display:flex;gap:9px}
+.loupe .pts i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)}
+.loupe .pts i.a{background:var(--mag)}
+/* d1 · une vraie fin */
+.final{position:relative;overflow:hidden;margin-top:clamp(28px,5cqw,64px);padding-block:clamp(26px,5cqw,56px) 6px;display:flex;flex-direction:column;gap:18px}
+.final>*{position:relative}
+.final>.ciel{position:absolute;opacity:.8}
+.final .haut2{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.e3 .final .punch{font-size:clamp(40px,13cqw,150px);min-width:0;margin:0}
+.final .liv{flex:none;width:clamp(58px,16cqw,200px);margin-bottom:4px}
+.final .mini{margin-top:-8px}
+/* d2 · la fête quand on s'inscrit */
+.fete{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden}
+.fete svg{position:absolute;top:0;width:clamp(22px,6vw,40px);height:auto;animation:pluie var(--t) cubic-bezier(.4,0,.8,.6) var(--dl) both}
+@keyframes pluie{from{transform:translateY(-12vh) rotate(0deg);opacity:1}86%{opacity:1}to{transform:translateY(108vh) rotate(var(--r));opacity:0}}
+@media (prefers-reduced-motion:reduce){.p,.p::after,.ec,.bande,.piste,.bul.a1::after,.e2 .envies.lum .env{animation:none}.e1 .ciel,.e1 .plan,.e1 .zone{transform:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<main class="apercu" id="apercu"><div id="e1"><header class="e1"><div class="ciel"></div><svg class="plan" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g stroke="rgba(255,255,255,.075)" stroke-width=".35" fill="none"><path d="M-5 14L165 30M-5 40L165 20M-5 58L165 70M-5 82L165 62M18-5L34 105M52-5L44 105M78-5L88 105M108-5L98 105M132-5L146 105"></path><circle cx="80" cy="46" r="34"></circle></g><path d="M-5 52C22 38 36 62 58 54S92 34 112 46S140 64 165 50" stroke="#2C4496" stroke-width="3.4" fill="none" stroke-linecap="round"></path></svg><div class="haut"><div class="marque"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg>Spot 105 Paris</div><a class="pilule" href="#prevenir">Préviens-moi</a></div><div class="zone"><div class="p fav gd" style="--x:20%;--y:5%;--dl:0.4s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#FF006E" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#fff" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p gd" style="--x:26%;--y:26%;--dl:0.55s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">23h</span></div><div class="p gd" style="--x:53%;--y:8%;--dl:0.7s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">Ce soir</span></div><div class="p loin gd" style="--x:61%;--y:29%;--dl:0.85s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p fav gd" style="--x:86%;--y:6%;--dl:1s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#FF006E" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#fff" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p loin gd" style="--x:93%;--y:27%;--dl:1.15s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p " style="--x:4%;--y:62%;--dl:1.3s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">Sam.</span></div><div class="p loin" style="--x:11%;--y:80%;--dl:1.45s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p fav" style="--x:37%;--y:64%;--dl:1.6s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#FF006E" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#fff" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p " style="--x:44%;--y:80%;--dl:1.75s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p " style="--x:70%;--y:62%;--dl:1.9s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">23h</span></div><div class="p loin" style="--x:77%;--y:81%;--dl:2.05s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="vg v0" style="--x:2%;--y:0%;--dl:1.6s;--c:#2563EB"><img width="440" height="440" src="img/p-30.webp" alt=""><div><b>Terrass' Hotel</b><small>Rooftop · Place de Clichy</small></div></div><div class="vg v1 gd" style="--x:18.4%;--y:0%;--dl:1.9500000000000002s;--c:#FF2E2E"><img width="330" height="440" src="img/p-19.webp" alt=""><div><b>Le Hoxton</b><small>Bar · Sentier</small></div></div><div class="vg v2" style="--x:34.8%;--y:0%;--dl:2.3s;--c:#FF00AE"><img width="440" height="293" src="img/p-364.webp" alt=""><div><b>Cabaret Sauvage</b><small>Club · Porte de la Villette</small></div></div><div class="vg v3 gd" style="--x:51.2%;--y:0%;--dl:2.65s;--c:#FFD60A"><img width="440" height="247" src="img/p-81.webp" alt=""><div><b>Atelier des Lumières</b><small>Culture · Rue Saint-Maur</small></div></div><div class="vg v4" style="--x:67.6%;--y:0%;--dl:3s;--c:#16A34A"><img width="440" height="293" src="img/p-49.webp" alt=""><div><b>Le Bouillon Pigalle</b><small>Resto · Pigalle</small></div></div><div class="vg v5 gd" style="--x:84%;--y:0%;--dl:3.35s;--c:#A0522D"><img width="440" height="247" src="img/p-64.webp" alt=""><div><b>Holybelly</b><small>Café · Jacques Bonsergent</small></div></div></div><div class="bas in c"><p class="nom" aria-label="Spot 105">Spot<i></i>105</p><h1 class="sousnom">L'adresse de tes sorties.</h1><div class="agir"><div class="stores"><div class="st"><small>Bientôt sur</small>App Store</div><div class="st"><small>Bientôt sur</small>Google Play</div></div><form class="form" id="prevenir" novalidate><label class="sr" for="email">Ton e-mail</label><input type="email" id="email" name="email" placeholder="ton@email.fr" autocomplete="email" inputmode="email" required maxlength="254"><input class="piege" type="text" id="site" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit" id="envoi">Préviens-moi</button></form></div><p class="mini" id="retour" aria-live="polite">Un seul e-mail, le jour de la sortie.</p><div hidden></div></div></header></div><div id="e2" class="att"><section class="e2 jour"><div class="in"><div class="grille"><div class="tel"><img width="480" height="1040" decoding="async" src="img/c-plan-01.webp" alt="Un plan de soirée dans Spot 105"></div><div class="col"><div class="parle"><div class="livw"><span class="nt"><span class="pol-app">Livia</span></span><img decoding="async" class="liv  groove" src="img/livia-bob.webp" width="640" height="865" alt="Livia avec un bob"></div><div><div class="pens"><span class="pd pd1"></span><span class="pd pd2"></span><div class="bul a1"><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:0s;--c:#2563EB"><img width="440" height="440" decoding="async" src="img/p-30.webp" alt=""><b>Terrass' Hotel</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:2.2s;--c:#FF2E2E"><img width="330" height="440" decoding="async" src="img/p-19.webp" alt=""><b>Le Hoxton</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:4.4s;--c:#FF00AE"><img width="440" height="293" decoding="async" src="img/p-364.webp" alt=""><b>Cabaret Sauvage</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:6.6000000000000005s;--c:#FFD60A"><img width="440" height="247" decoding="async" src="img/p-81.webp" alt=""><b>Atelier des Lumières</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:8.8s;--c:#16A34A"><img width="440" height="293" decoding="async" src="img/p-49.webp" alt=""><b>Le Bouillon Pigalle</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:11s;--c:#A0522D"><img width="440" height="247" decoding="async" src="img/p-64.webp" alt=""><b>Holybelly</b></div></div></div><h2 class="une b">T'as envie de quoi ?</h2></div></div><ul class="trois"><li>Tu me dis</li><li>Je trie</li><li>Tu sors</li></ul><div class="envies lum"><span class="env" style="--i:0">Un bar latino, puis un club à Montmartre</span><span class="env" style="--i:1">Un rooftop pour un date à Pigalle</span><span class="env" style="--i:2">Afterwork en terrasse près de Bastille</span><span class="env" style="--i:3">Un verre avec vue sur la tour Eiffel</span><span class="env" style="--i:4">Un bar pour voir le match à Châtelet</span><span class="env" style="--i:5">Un resto pour un anniversaire à 10 dans le 11e</span></div></div></div></div></section></div><div id="e3" class="att"><section class="e3 nuit"><div class="in"><div class="grille cote"><div class="col"><h2 class="punch "><span><em style="--i:0">Ton envie</em></span><span><em style="--i:1">a une</em></span><span><em class="m" style="--i:2">adresse.</em></span></h2><a class="rappel" href="#prevenir">Préviens-moi à la sortie</a></div><div class="ecrs" style="--n:4"><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-accueil-05.webp" alt="" style="--dy:-15.1%"></div><b>Ouvert maintenant</b><small>Ce qui est ouvert là, tout de suite.</small></figure><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-carte-04.webp" alt="" style="--dy:-15.1%"></div><b>La carte</b><small>Les bons spots autour de toi.</small></figure><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-fiche-spot-04.webp" alt="" style="--dy:-15.1%"></div><b>La fiche</b><small>L'essentiel, puis « Y aller ».</small></figure><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-soirees-06.webp" alt="" style="--dy:-15.1%"></div><b>Les soirées</b><small>Classées par jour et par genre.</small></figure></div></div><div class="fin"><div><h3>À quoi sert Spot 105 Paris ?</h3><p>Une appli gratuite pour trouver où sortir à Paris : bars, clubs, rooftops, restos et soirées du jour.</p><small>En test privé avant sa sortie sur l'App Store et Google Play. Compte facultatif, par e-mail ou avec Google (nom, e-mail, photo, rien d'autre) : le détail est dans la <a href="confidentialite/">politique de confidentialité</a>.</small></div><div class="liens"><a href="confidentialite/">Politique de confidentialité</a><span>Contact : <a href="mailto:bonjour@spot105.fr">bonjour@spot105.fr</a></span><span>© 2026 Spot 105 Paris</span></div></div></div></section></div></main>
+<main class="apercu" id="apercu"><div id="e1"><header class="e1"><div class="ciel"></div><svg class="plan" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g stroke="rgba(255,255,255,.075)" stroke-width=".35" fill="none"><path d="M-5 14L165 30M-5 40L165 20M-5 58L165 70M-5 82L165 62M18-5L34 105M52-5L44 105M78-5L88 105M108-5L98 105M132-5L146 105"></path><circle cx="80" cy="46" r="34"></circle></g><path d="M-5 52C22 38 36 62 58 54S92 34 112 46S140 64 165 50" stroke="#2C4496" stroke-width="3.4" fill="none" stroke-linecap="round"></path></svg><div class="haut"><div class="marque"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg>Spot 105 Paris</div><a class="pilule" href="#prevenir">Préviens-moi</a></div><div class="zone"><div class="p fav gd" style="--x:20%;--y:5%;--dl:0.4s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#FF006E" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#fff" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p gd" style="--x:26%;--y:26%;--dl:0.55s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">23h</span></div><div class="p gd" style="--x:53%;--y:8%;--dl:0.7s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">Ce soir</span></div><div class="p loin gd" style="--x:61%;--y:29%;--dl:0.85s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p fav gd" style="--x:86%;--y:6%;--dl:1s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#FF006E" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#fff" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p loin gd" style="--x:93%;--y:27%;--dl:1.15s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p " style="--x:4%;--y:62%;--dl:1.3s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">Sam.</span></div><div class="p loin" style="--x:11%;--y:80%;--dl:1.45s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p fav" style="--x:37%;--y:64%;--dl:1.6s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#FF006E" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#fff" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p " style="--x:44%;--y:80%;--dl:1.75s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="p " style="--x:70%;--y:62%;--dl:1.9s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg><span class="et">23h</span></div><div class="p loin" style="--x:77%;--y:81%;--dl:2.05s"><svg class="pin" viewBox="250 150 524 720" aria-hidden="true"><path d="M512 843.76C418.19 709 283.2 582.93 283.2 409.04A228.8 228.8 0 1 1 740.8 409.04C740.8 582.93 605.81 709 512 843.76Z" fill="#fff" stroke="#141014" stroke-width="26" stroke-linejoin="round"></path><circle cx="512" cy="409.04" r="80.6" fill="#FF006E" stroke="#141014" stroke-width="13"></circle></svg></div><div class="bande" id="bande"><div class="piste"><div class="vg v0" style="--x:2%;--y:0%;--dl:1.6s;--c:#2563EB"><img width="440" height="440" src="img/p-30.webp" alt=""><div><b>Terrass' Hotel</b><small>Rooftop · Place de Clichy</small></div></div><div class="vg v1 gd" style="--x:18.4%;--y:0%;--dl:1.9500000000000002s;--c:#FF2E2E"><img width="330" height="440" src="img/p-19.webp" alt=""><div><b>Le Hoxton</b><small>Bar · Sentier</small></div></div><div class="vg v2" style="--x:34.8%;--y:0%;--dl:2.3s;--c:#FF00AE"><img width="440" height="293" src="img/p-364.webp" alt=""><div><b>Cabaret Sauvage</b><small>Club · Porte de la Villette</small></div></div><div class="vg v3 gd" style="--x:51.2%;--y:0%;--dl:2.65s;--c:#FFD60A"><img width="440" height="247" src="img/p-81.webp" alt=""><div><b>Atelier des Lumières</b><small>Culture · Rue Saint-Maur</small></div></div><div class="vg v4" style="--x:67.6%;--y:0%;--dl:3s;--c:#16A34A"><img width="440" height="293" src="img/p-49.webp" alt=""><div><b>Le Bouillon Pigalle</b><small>Resto · Pigalle</small></div></div><div class="vg v5 gd" style="--x:84%;--y:0%;--dl:3.35s;--c:#A0522D"><img width="440" height="247" src="img/p-64.webp" alt=""><div><b>Holybelly</b><small>Café · Jacques Bonsergent</small></div></div><div aria-hidden="true" class="clone vg v0" style="--x:2%;--y:0%;--dl:1.6s;--c:#2563EB"><img width="440" height="440" src="img/p-30.webp" alt=""><div><b>Terrass' Hotel</b><small>Rooftop · Place de Clichy</small></div></div><div aria-hidden="true" class="clone vg v1 gd" style="--x:18.4%;--y:0%;--dl:1.9500000000000002s;--c:#FF2E2E"><img width="330" height="440" src="img/p-19.webp" alt=""><div><b>Le Hoxton</b><small>Bar · Sentier</small></div></div><div aria-hidden="true" class="clone vg v2" style="--x:34.8%;--y:0%;--dl:2.3s;--c:#FF00AE"><img width="440" height="293" src="img/p-364.webp" alt=""><div><b>Cabaret Sauvage</b><small>Club · Porte de la Villette</small></div></div><div aria-hidden="true" class="clone vg v3 gd" style="--x:51.2%;--y:0%;--dl:2.65s;--c:#FFD60A"><img width="440" height="247" src="img/p-81.webp" alt=""><div><b>Atelier des Lumières</b><small>Culture · Rue Saint-Maur</small></div></div><div aria-hidden="true" class="clone vg v4" style="--x:67.6%;--y:0%;--dl:3s;--c:#16A34A"><img width="440" height="293" src="img/p-49.webp" alt=""><div><b>Le Bouillon Pigalle</b><small>Resto · Pigalle</small></div></div><div aria-hidden="true" class="clone vg v5 gd" style="--x:84%;--y:0%;--dl:3.35s;--c:#A0522D"><img width="440" height="247" src="img/p-64.webp" alt=""><div><b>Holybelly</b><small>Café · Jacques Bonsergent</small></div></div></div></div></div><div class="bas in c"><p class="nom" aria-label="Spot 105">Spot<i></i>105</p><h1 class="sousnom">L'adresse de tes sorties.</h1><div class="agir"><div class="stores"><div class="st"><small>Bientôt sur</small>App Store</div><div class="st"><small>Bientôt sur</small>Google Play</div></div><form class="form" id="prevenir" novalidate><label class="sr" for="email">Ton e-mail</label><input type="email" id="email" name="email" placeholder="ton@email.fr" autocomplete="email" inputmode="email" required maxlength="254"><input class="piege" type="text" id="site" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit" id="envoi">Préviens-moi</button></form></div><p class="mini" id="retour" aria-live="polite">Un seul e-mail, le jour de la sortie.</p><div hidden></div></div></header></div><div id="e2" class="att"><section class="e2 jour"><div class="in"><div class="grille"><div class="tel"><img width="480" height="1040" decoding="async" src="img/c-plan-01.webp" alt="Un plan de soirée dans Spot 105"></div><div class="col"><div class="parle"><div class="livw"><span class="nt"><span class="pol-app">Livia</span></span><img decoding="async" class="liv  groove" src="img/livia-bob.webp" width="640" height="865" alt="Livia avec un bob"></div><div><div class="pens"><span class="pd pd1"></span><span class="pd pd2"></span><div class="bul a1"><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:0s;--c:#2563EB"><img width="440" height="440" decoding="async" src="img/p-30.webp" alt=""><b>Terrass' Hotel</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:2.2s;--c:#FF2E2E"><img width="330" height="440" decoding="async" src="img/p-19.webp" alt=""><b>Le Hoxton</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:4.4s;--c:#FF00AE"><img width="440" height="293" decoding="async" src="img/p-364.webp" alt=""><b>Cabaret Sauvage</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:6.6000000000000005s;--c:#FFD60A"><img width="440" height="247" decoding="async" src="img/p-81.webp" alt=""><b>Atelier des Lumières</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:8.8s;--c:#16A34A"><img width="440" height="293" decoding="async" src="img/p-49.webp" alt=""><b>Le Bouillon Pigalle</b></div><div class="it" style="--k:tour6;--t:13.200000000000001s;--d:11s;--c:#A0522D"><img width="440" height="247" decoding="async" src="img/p-64.webp" alt=""><b>Holybelly</b></div></div></div><h2 class="une b">T'as envie de quoi ?</h2></div></div><ul class="trois"><li>Tu me dis</li><li>Je trie</li><li>Tu sors</li></ul><div class="envies lum"><span class="env" style="--i:0"><span class="lg">Un bar latino, puis un club à Montmartre</span><span class="ct">Bar latino, puis club</span></span><span class="env" style="--i:1"><span class="lg">Un rooftop pour un date à Pigalle</span><span class="ct">Rooftop pour un date</span></span><span class="env" style="--i:2"><span class="lg">Afterwork en terrasse près de Bastille</span><span class="ct">Afterwork en terrasse</span></span><span class="env" style="--i:3"><span class="lg">Un verre avec vue sur la tour Eiffel</span><span class="ct">Un verre avec vue</span></span><span class="env" style="--i:4"><span class="lg">Un bar pour voir le match à Châtelet</span><span class="ct">Bar pour voir le match</span></span><span class="env" style="--i:5"><span class="lg">Un resto pour un anniversaire à 10 dans le 11e</span><span class="ct">Anniv à 10 au resto</span></span></div></div></div></div></section></div><div id="e3" class="att"><section class="e3 nuit"><div class="in"><div class="grille cote"><div class="col"><h2 class="punch "><span><em style="--i:0">Ton envie</em></span><span><em style="--i:1">a une</em></span><span><em class="m" style="--i:2">adresse.</em></span></h2><a class="rappel" href="#prevenir2">Préviens-moi à la sortie</a></div><div class="ecrs" style="--n:4"><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-accueil-05.webp" alt="" style="--dy:-15.1%"></div><b>Ouvert maintenant</b><small>Ce qui est ouvert là, tout de suite.</small></figure><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-carte-04.webp" alt="" style="--dy:-15.1%"></div><b>La carte</b><small>Les bons spots autour de toi.</small></figure><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-fiche-spot-04.webp" alt="" style="--dy:-15.1%"></div><b>La fiche</b><small>L'essentiel, puis « Y aller ».</small></figure><figure class="ec" style=""><div class="cadre plein"><img width="480" height="1040" decoding="async" src="img/c-soirees-06.webp" alt="" style="--dy:-15.1%"></div><b>Les soirées</b><small>Classées par jour et par genre.</small></figure></div></div><div class="final att" id="final"><div class="ciel"></div><div class="haut2"><h2 class="punch"><span><em style="--i:0">Cherche moins,</em></span><span><em class="m" style="--i:1">sors plus.</em></span></h2><img class="liv groove" id="livfin" src="img/livia-bob.webp" width="640" height="865" alt="" decoding="async"></div><form class="form" id="prevenir2" novalidate><label class="sr" for="email2">Ton e-mail</label><input type="email" id="email2" name="email" placeholder="ton@email.fr" autocomplete="email" inputmode="email" required maxlength="254"><input class="piege" type="text" id="site2" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit" id="envoi2">Préviens-moi</button></form><p class="mini" id="retour2" aria-live="polite">Un seul e-mail, le jour de la sortie.</p></div><div class="fin"><div><h3>À quoi sert Spot 105 Paris ?</h3><p>Une appli gratuite pour trouver où sortir à Paris : bars, clubs, rooftops, restos et soirées du jour.</p><small>En test privé avant sa sortie sur l'App Store et Google Play. Compte facultatif, par e-mail ou avec Google (nom, e-mail, photo, rien d'autre) : le détail est dans la <a href="confidentialite/">politique de confidentialité</a>.</small></div><div class="liens"><a href="confidentialite/">Politique de confidentialité</a><span>Contact : <a href="mailto:bonjour@spot105.fr">bonjour@spot105.fr</a></span><span>© 2026 Spot 105 Paris</span></div></div></div></section></div></main>
 <script>
 (function(){
-  /* les animations des écrans 2 et 3 ne partent qu'à l'arrivée */
-  var att=document.querySelectorAll('.att');
-  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('att');io.unobserve(e.target)}})},{threshold:.15});[].forEach.call(att,function(c){io.observe(c)})}
-  else{[].forEach.call(att,function(c){c.classList.remove('att')})}
+  var calme=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function $(q,r){return (r||document).querySelector(q)}
+  function $$(q,r){return [].slice.call((r||document).querySelectorAll(q))}
 
-  /* écrans de l'appli : toucher = voir en grand */
-  [].forEach.call(document.querySelectorAll('.ec'),function(ec){
-    var img=ec.querySelector('img'),t=ec.querySelector('b'),d=ec.querySelector('small');
+  /* les animations des écrans 2 et 3 (et de la fin) ne partent qu'à l'arrivée */
+  var att=$$('.att');
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('att');io.unobserve(e.target)}})},{threshold:.15});att.forEach(function(c){io.observe(c)})}
+  else{att.forEach(function(c){c.classList.remove('att')})}
+
+  /* la carte a de la profondeur + Livia se penche dans le sens du défilement */
+  var e1=$('header.e1'),livia=$('.parle .liv'),dernier=window.scrollY||0,tic=false,repos=null;
+  function defile(){tic=false;var y=window.scrollY||0;
+    if(e1&&y<e1.offsetHeight+40)e1.style.setProperty('--sy',y.toFixed(0));
+    if(livia){var v=Math.max(-14,Math.min(14,(y-dernier)*.7));livia.style.setProperty('--pen',v.toFixed(1)+'deg');clearTimeout(repos);repos=setTimeout(function(){livia.style.setProperty('--pen','0deg')},140)}
+    dernier=y}
+  if(!calme)window.addEventListener('scroll',function(){if(!tic){tic=true;requestAnimationFrame(defile)}},{passive:true});
+
+  /* Livia saute quand on la touche */
+  function saut(l){if(!l||calme)return;l.classList.remove('saut');void l.offsetWidth;l.classList.add('saut')}
+  $$('.liv').forEach(function(l){l.addEventListener('click',function(){saut(l)});l.addEventListener('animationend',function(e){if(e.animationName==='saut')l.classList.remove('saut')})});
+
+  /* la bande des six lieux : elle s'arrête sous le doigt, puis repart */
+  var bande=$('#bande'),piste=bande&&$('.piste',bande),reprise=null;
+  if(piste){['touchstart','pointerdown'].forEach(function(ev){bande.addEventListener(ev,function(){clearTimeout(reprise);piste.style.animationPlayState='paused'},{passive:true})});
+    ['touchend','touchcancel','pointerup','pointerleave'].forEach(function(ev){bande.addEventListener(ev,function(){clearTimeout(reprise);reprise=setTimeout(function(){piste.style.animationPlayState=''},1800)},{passive:true})})}
+
+  /* écrans de l'appli : toucher = voir en grand, puis glisser de l'un à l'autre */
+  var ecs=$$('.ec');
+  function ouvrir(depart){
+    var o=document.createElement('div');o.className='loupe';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label','Les écrans de l\'appli en grand');
+    var x=document.createElement('button');x.type='button';x.setAttribute('aria-label','Fermer');x.textContent='×';o.appendChild(x);
+    var rail=document.createElement('div');rail.className='rail';o.appendChild(rail);
+    var pts=document.createElement('div');pts.className='pts';pts.setAttribute('aria-hidden','true');o.appendChild(pts);
+    var points=ecs.map(function(ec){var img=ec.querySelector('img'),t=ec.querySelector('b'),d=ec.querySelector('small');
+      var v=document.createElement('div');v.className='vue';var im=document.createElement('img');im.src=img.src;im.alt=t?t.textContent:'';v.appendChild(im);
+      var b=document.createElement('b');b.textContent=t?t.textContent:'';v.appendChild(b);var sm=document.createElement('small');sm.textContent=d?d.textContent:'';v.appendChild(sm);
+      rail.appendChild(v);var p=document.createElement('i');pts.appendChild(p);return p});
+    var n=depart;function marque(){points.forEach(function(p,i){p.classList.toggle('a',i===n)})}
+    function gauche(i){var v=rail.children[i];return v.offsetLeft-rail.offsetLeft-(rail.clientWidth-v.offsetWidth)/2}
+    function aller(i,doux){n=Math.max(0,Math.min(ecs.length-1,i));rail.scrollTo({left:gauche(n),behavior:doux&&!calme?'smooth':'auto'});marque()}
+    var at=null;rail.addEventListener('scroll',function(){if(at)return;at=setTimeout(function(){at=null;var m=0,d=1e9;for(var k=0;k<ecs.length;k++){var e=Math.abs(gauche(k)-rail.scrollLeft);if(e<d){d=e;m=k}}n=m;marque()},70)},{passive:true});
+    function fermer(){document.removeEventListener('keydown',clavier);o.remove();document.body.style.overflow='';ecs[n].focus()}
+    function clavier(e){if(e.key==='Escape')fermer();else if(e.key==='ArrowRight')aller(n+1,true);else if(e.key==='ArrowLeft')aller(n-1,true)}
+    o.addEventListener('click',fermer);document.addEventListener('keydown',clavier);
+    document.body.appendChild(o);document.body.style.overflow='hidden';aller(depart,false);x.focus();
+  }
+  ecs.forEach(function(ec,i){var t=ec.querySelector('b');
     ec.setAttribute('tabindex','0');ec.setAttribute('role','button');ec.setAttribute('aria-label','Voir en grand : '+(t?t.textContent:''));
-    function ouvrir(){
-      var o=document.createElement('div');o.className='loupe';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');
-      o.innerHTML='<button type="button" aria-label="Fermer">×</button><img alt=""><b></b><small></small>';
-      o.querySelector('img').src=img.src;o.querySelector('img').alt=t?t.textContent:'';
-      o.querySelector('b').textContent=t?t.textContent:'';o.querySelector('small').textContent=d?d.textContent:'';
-      function fermer(){document.removeEventListener('keydown',esc);o.remove();document.body.style.overflow='';ec.focus()}
-      function esc(e){if(e.key==='Escape')fermer()}
-      o.addEventListener('click',fermer);document.addEventListener('keydown',esc);
-      document.body.appendChild(o);document.body.style.overflow='hidden';o.querySelector('button').focus();
-    }
-    ec.addEventListener('click',ouvrir);
-    ec.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();ouvrir()}});
+    ec.addEventListener('click',function(){ouvrir(i)});
+    ec.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();ouvrir(i)}});
   });
-  /* « Préviens-moi » : une ligne dans la table vitrine_prevenir, en écriture seule */
+
+  /* la fête quand on s'inscrit : une pluie de pins, et Livia saute */
+  function fete(){saut($('#livfin'));if(calme)return;var modele=$('.marque .pin');if(!modele)return;
+    var f=document.createElement('div');f.className='fete';f.setAttribute('aria-hidden','true');
+    for(var i=0;i<24;i++){var p=modele.cloneNode(true);p.removeAttribute('class');
+      p.style.left=(Math.random()*94)+'%';p.style.setProperty('--r',(Math.random()*140-70).toFixed(0)+'deg');
+      p.style.setProperty('--t',(1.5+Math.random()*1.1).toFixed(2)+'s');p.style.setProperty('--dl',(Math.random()*.7).toFixed(2)+'s');f.appendChild(p)}
+    document.body.appendChild(f);setTimeout(function(){f.remove()},3600)}
+
+  /* « Préviens-moi » : une ligne dans la table vitrine_prevenir, en écriture seule (deux formulaires : en haut et à la fin) */
   var API='https://gyulgensyqsmpsaxrwcz.supabase.co/rest/v1/vitrine_prevenir',CLE='sb_publishable_-ImlWY2HRTt_MywWgAzRkA_eUkS_LYs';
-  var f=document.getElementById('prevenir'),champ=document.getElementById('email'),bouton=document.getElementById('envoi'),retour=document.getElementById('retour');
-  function dire(t,ok){retour.textContent=t;retour.className='mini'+(ok?' ok':'')}
-  f.addEventListener('submit',function(ev){
-    ev.preventDefault();
-    var mail=champ.value.trim().toLowerCase();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(mail)){dire('Cette adresse a l\'air incomplète. Vérifie-la.');champ.focus();return}
-    if(document.getElementById('site').value){dire('C\'est noté. On t\'écrit le jour de la sortie 🌙',true);return}
-    bouton.disabled=true;dire('Un instant…');
-    fetch(API,{method:'POST',headers:{'apikey':CLE,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:mail,lang:'fr'})})
-      .then(function(r){if(r.status===201){dire('C\'est noté. On t\'écrit le jour de la sortie 🌙',true);f.reset()}else if(r.status===409){dire('Tu es déjà sur la liste. On t\'écrit le jour de la sortie 🌙',true)}else{dire('Ça n\'a pas marché. Réessaie dans un instant.')}})
-      .catch(function(){dire('Pas de réseau. Réessaie dans un instant.')})
-      .then(function(){bouton.disabled=false});
+  [['prevenir','email','site','envoi','retour'],['prevenir2','email2','site2','envoi2','retour2']].forEach(function(c){
+    var f=document.getElementById(c[0]),champ=document.getElementById(c[1]),piege=document.getElementById(c[2]),bouton=document.getElementById(c[3]),retour=document.getElementById(c[4]);
+    if(!f||!champ||!bouton||!retour)return;
+    function dire(t,ok){retour.textContent=t;retour.className='mini'+(ok?' ok':'')}
+    f.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var mail=champ.value.trim().toLowerCase();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(mail)){dire('Cette adresse a l\'air incomplète. Vérifie-la.');champ.focus();return}
+      if(piege&&piege.value){dire('C\'est noté. On t\'écrit le jour de la sortie 🌙',true);return}
+      bouton.disabled=true;dire('Un instant…');
+      fetch(API,{method:'POST',headers:{'apikey':CLE,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email:mail,lang:'fr'})})
+        .then(function(r){if(r.status===201){dire('C\'est noté. On t\'écrit le jour de la sortie 🌙',true);f.reset();fete()}else if(r.status===409){dire('Tu es déjà sur la liste. On t\'écrit le jour de la sortie 🌙',true);fete()}else{dire('Ça n\'a pas marché. Réessaie dans un instant.')}})
+        .catch(function(){dire('Pas de réseau. Réessaie dans un instant.')})
+        .then(function(){bouton.disabled=false});
+    });
   });
+
+  /* un mot pour celles et ceux qui ouvrent la console */
+  try{console.log('%cSPOT ● 105%c\nSalut, toi qui regardes le code.\nIci : 0 librairie, tout est fait main.\nUn projet ? bonjour@spot105.fr','font:700 28px/1.2 Impact,sans-serif;color:#FF006E','font:14px/1.6 ui-monospace,Menlo,monospace;color:inherit')}catch(e){}
 })();
 </script>
 </body>
