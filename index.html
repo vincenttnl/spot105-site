@@ -283,6 +283,32 @@ h1,h2,h3,.bb{font-family:var(--titre);font-weight:400;text-transform:uppercase;l
 @container (min-width:721px){
   .e3 .grille.cote .punch{font-size:clamp(52px,7.2cqw,112px)}
 }
+
+/* ───────── retours Vincent 21/11 soir : Livia (phrases à gauche, téléphone à droite) · 4 écrans sur une ligne + agrandir */
+@container (max-width:720px){
+  .ecrs{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .ec b{font-size:clamp(12px,3.6cqw,16px)}
+  .ec small{display:none}
+  .cadre{border-radius:10px}
+}
+@media (max-width:720px){
+  .e2 .grille{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"parle parle" "trois trois" "envies tel";column-gap:14px;row-gap:16px;align-items:center}
+  .e2 .col{display:contents}
+  .e2 .parle{grid-area:parle}
+  .e2 .trois{grid-area:trois}
+  .e2 .envies{grid-area:envies}
+  .e2 .grille>.tel{grid-area:tel;order:0;width:37cqw;border-width:5px;border-radius:24px;justify-self:end;margin-right:2px}
+  .e2 .envies{flex-direction:column;align-items:stretch;gap:8px}
+  .e2 .envies .env{font-size:13px;padding:8px 11px;line-height:1.25;white-space:normal;text-wrap:balance}
+}
+.ec{cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.ec:focus-visible{outline:2px solid var(--mag);outline-offset:4px;border-radius:12px}
+.loupe{position:fixed;inset:0;z-index:50;background:rgba(6,10,28,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));cursor:zoom-out;animation:loupe .2s ease-out}
+.loupe img{max-width:min(92vw,440px);max-height:78svh;width:auto;height:auto;border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.loupe b{font:400 24px/1 var(--titre);letter-spacing:.04em;text-transform:uppercase;color:#fff}
+.loupe small{color:#B9C0D8;font-size:15px;text-align:center}
+.loupe button{position:absolute;top:max(12px,env(safe-area-inset-top));right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+@keyframes loupe{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 .apercu{margin-right:0!important;padding-bottom:0!important}
@@ -311,6 +337,24 @@ a{color:inherit}
   var att=document.querySelectorAll('.att');
   if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('att');io.unobserve(e.target)}})},{threshold:.15});[].forEach.call(att,function(c){io.observe(c)})}
   else{[].forEach.call(att,function(c){c.classList.remove('att')})}
+
+  /* écrans de l'appli : toucher = voir en grand */
+  [].forEach.call(document.querySelectorAll('.ec'),function(ec){
+    var img=ec.querySelector('img'),t=ec.querySelector('b'),d=ec.querySelector('small');
+    ec.setAttribute('tabindex','0');ec.setAttribute('role','button');ec.setAttribute('aria-label','Voir en grand : '+(t?t.textContent:''));
+    function ouvrir(){
+      var o=document.createElement('div');o.className='loupe';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');
+      o.innerHTML='<button type="button" aria-label="Fermer">×</button><img alt=""><b></b><small></small>';
+      o.querySelector('img').src=img.src;o.querySelector('img').alt=t?t.textContent:'';
+      o.querySelector('b').textContent=t?t.textContent:'';o.querySelector('small').textContent=d?d.textContent:'';
+      function fermer(){document.removeEventListener('keydown',esc);o.remove();document.body.style.overflow='';ec.focus()}
+      function esc(e){if(e.key==='Escape')fermer()}
+      o.addEventListener('click',fermer);document.addEventListener('keydown',esc);
+      document.body.appendChild(o);document.body.style.overflow='hidden';o.querySelector('button').focus();
+    }
+    ec.addEventListener('click',ouvrir);
+    ec.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();ouvrir()}});
+  });
   /* « Préviens-moi » : une ligne dans la table vitrine_prevenir, en écriture seule */
   var API='https://gyulgensyqsmpsaxrwcz.supabase.co/rest/v1/vitrine_prevenir',CLE='sb_publishable_-ImlWY2HRTt_MywWgAzRkA_eUkS_LYs';
   var f=document.getElementById('prevenir'),champ=document.getElementById('email'),bouton=document.getElementById('envoi'),retour=document.getElementById('retour');
