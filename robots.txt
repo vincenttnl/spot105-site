@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://spot105.fr/sitemap.xml
