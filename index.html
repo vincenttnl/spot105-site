@@ -10,10 +10,14 @@
 <meta property="og:url" content="https://spot105.fr/">
 <meta property="og:title" content="Spot 105 Paris — l'adresse de tes sorties">
 <meta property="og:description" content="Dis ton envie, Livia compose ta soirée à Paris. Bientôt sur l'App Store et Google Play.">
-<meta property="og:image" content="https://spot105.fr/icon-512.png">
+<meta property="og:image" content="https://spot105.fr/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Spot 105, l'adresse de tes sorties, avec Livia">
 <meta property="og:site_name" content="Spot 105 Paris">
 <meta property="og:locale" content="fr_FR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://spot105.fr/og.png">
 <link rel="canonical" href="https://spot105.fr/">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://spot105.fr/#site","url":"https://spot105.fr/","name":"Spot 105 Paris","inLanguage":"fr-FR","description":"Spot 105 Paris compose ta soirée à Paris : dis ce que tu veux, Livia trie les lieux ouverts et les soirées du moment, tu sors.","publisher":{"@id":"https://spot105.fr/#org"}},{"@type":"Organization","@id":"https://spot105.fr/#org","name":"Spot 105 Paris","url":"https://spot105.fr/","logo":"https://spot105.fr/icon-512.png","email":"bonjour@spot105.fr"}]}</script>
 <link rel="icon" href="favicon-32.png">
@@ -609,6 +613,18 @@ a{color:inherit}
 .passe:active{scale:.97}
 @keyframes passe{from{opacity:0;translate:0 8px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.passe{animation:none}}
+/* ───────── la nuit tombe (23/11) : la partie nuit arrive blanche et s'assombrit pendant qu'on descend.
+   Navigateurs sans animation liée au défilement : rien ne change (fond nuit direct). */
+@supports (animation-timeline:view()){@media (prefers-reduced-motion:no-preference){
+#apercu{overflow:clip}
+#e3{view-timeline:--tombe block}
+#e3 .e3{animation:tombe linear both;animation-timeline:--tombe;animation-range:entry 0px entry 260px;animation-play-state:running!important}
+#e3 .punch.pq{animation:tombe-titre linear both;animation-timeline:--tombe;animation-range:entry 0px entry 260px;animation-play-state:running!important}
+#e3 .punch.pq .m{animation:tombe-neon linear both;animation-timeline:--tombe;animation-range:entry 200px entry 420px;animation-play-state:running!important}
+@keyframes tombe{from{background-color:#fff}to{background-color:var(--nuit)}}
+@keyframes tombe-titre{0%,35%{color:var(--encre)}58%,100%{color:#fff}}
+@keyframes tombe-neon{from{text-shadow:none}to{text-shadow:0 0 .22em rgba(255,0,110,.7)}}
+}}
 </style>
 </head>
 <body>
